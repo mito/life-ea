@@ -13,9 +13,8 @@ describe "Canvas" do
 
 
     it "should generate next generation canvas" do 
-        pending 'need to fix cell switching first'
         canvas = Canvas.new '100000000000000000000000000000000000'
-        canvas2 = canvas.live 
+        canvas2 = canvas.next_generation 
 
         canvas2.genom.should = '000000000000000000000000000000000000'
     end

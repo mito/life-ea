@@ -7,8 +7,9 @@ class Canvas
         @genom
     end
 
-
-    def live 
+    #create copy of Canvas and modify cells
+    def next_generation 
+        
     end
 
     def live_neighbours row, column
