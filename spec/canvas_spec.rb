@@ -23,37 +23,31 @@ describe "Canvas" do
     it 'should return number of neighbours of left-upper corner cell' do
         canvas = Canvas.new '010000-000000-000000-000000-000000-000000'
         canvas.live_neighbours(0,0).should == 1
-
     end
 
     it 'should return number of neighbours of right-upper corner cell' do
         canvas = Canvas.new '010011-000011-000000-000000-000000-000000'
         canvas.live_neighbours(0,5).should == 3
-
     end
 
     it 'should return number of neighbours of middle cell' do
         canvas = Canvas.new '010011-000011-000000-000000-000000-000000'
         canvas.live_neighbours(2,2).should == 0
-
     end
 
     it 'should return number of neighbours of lower-left cell' do
         canvas = Canvas.new '010011-000011-000000-000000-100000-010000'
         canvas.live_neighbours(5,0).should == 2
-
     end
 
     it 'should return number of neighbours of lower-right cell' do
         canvas = Canvas.new '010011-000011-000000-000000-100011-010010'
         canvas.live_neighbours(5,5).should == 3
-
     end
 
     it 'should return number of neighbours of some cell' do
         canvas = Canvas.new '111011-111011-111000-000000-100011-010010'
         canvas.live_neighbours(1,1).should == 8
-
     end
 
     it 'should return cell value' do
@@ -74,5 +68,16 @@ describe "Canvas" do
     it 'should return cell value6' do
         canvas = Canvas.new '010000-000000-000005-000000-000000-000006'
         canvas.cell(5,5).should == 6
+    end
+
+    it 'should set cell value to 5,5' do
+        canvas = Canvas.new '010000-000000-000005-000000-000000-000006'
+        canvas.set_cell(5,5,11)
+        canvas.genom.should == '0100000000000000050000000000000000011'
+    end
+    it 'should set cell value to 0,5' do
+        canvas = Canvas.new '010000-000000-000005-000000-000000-000006'
+        canvas.set_cell(0,5,1)
+        canvas.genom.should == '010001000000000005000000000000000006'
     end
 end

@@ -40,4 +40,9 @@ class Canvas
         index = row * 6 + column
         @genom[index].chr.to_i
     end
+
+    def set_cell row, column, value
+        index = row * 6 + column
+        @genom[index] = value.to_s 
+    end
 end
