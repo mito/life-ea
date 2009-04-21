@@ -20,9 +20,39 @@ describe "Canvas" do
         canvas2.genom.should = '000000000000000000000000000000000000'
     end
 
-    it 'should return number of neighbours of corner cell' do
+    it 'should return number of neighbours of left-upper corner cell' do
         canvas = Canvas.new '010000-000000-000000-000000-000000-000000'
-        canvas.neighbours(0,0).should = 1
+        canvas.live_neighbours(0,0).should == 1
+
+    end
+
+    it 'should return number of neighbours of right-upper corner cell' do
+        canvas = Canvas.new '010011-000011-000000-000000-000000-000000'
+        canvas.live_neighbours(0,5).should == 3
+
+    end
+
+    it 'should return number of neighbours of middle cell' do
+        canvas = Canvas.new '010011-000011-000000-000000-000000-000000'
+        canvas.live_neighbours(2,2).should == 0
+
+    end
+
+    it 'should return number of neighbours of lower-left cell' do
+        canvas = Canvas.new '010011-000011-000000-000000-100000-010000'
+        canvas.live_neighbours(5,0).should == 2
+
+    end
+
+    it 'should return number of neighbours of lower-right cell' do
+        canvas = Canvas.new '010011-000011-000000-000000-100011-010010'
+        canvas.live_neighbours(5,5).should == 3
+
+    end
+
+    it 'should return number of neighbours of some cell' do
+        canvas = Canvas.new '111011-111011-111000-000000-100011-010010'
+        canvas.live_neighbours(1,1).should == 8
 
     end
 
