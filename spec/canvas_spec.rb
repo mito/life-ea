@@ -36,4 +36,14 @@ describe "Canvas" do
         canvas = Canvas.new '010000-000000-000000-000000-000000-000000'
         canvas.cell(0,1).should == 1
     end
+
+    it 'should return cell value5' do
+        canvas = Canvas.new '010000-000000-000005-000000-000000-000000'
+        canvas.cell(2,5).should == 5
+    end
+
+    it 'should return cell value6' do
+        canvas = Canvas.new '010000-000000-000005-000000-000000-000006'
+        canvas.cell(5,5).should == 6
+    end
 end
