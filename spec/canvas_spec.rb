@@ -21,7 +21,6 @@ describe "Canvas" do
     end
 
     it 'should return number of neighbours of corner cell' do
-        pending 'need to get cell on exect location'
         canvas = Canvas.new '010000-000000-000000-000000-000000-000000'
         canvas.neighbours(0,0).should = 1
 
