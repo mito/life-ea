@@ -173,6 +173,7 @@ describe "Canvas" do
                     [0, 0, 0, 0, 0, 0]]
         canvas = Canvas.new genom1
         canvas.transformations.size.should == 36
+
         canvas.transformations.each do |transf|
             transf = transf.genom.flatten
             sum = 0

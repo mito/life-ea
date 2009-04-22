@@ -2,7 +2,7 @@ class Canvas
     def initialize genom
         if genom[0].is_a? String 
             @genom = Array[[], [], [], [], [], []]
-            0..6.times do |i|
+            6.times do |i|
                 row = genom[i].split(//)
                 row.map! do |s| 
                     s.to_i 
@@ -26,8 +26,8 @@ class Canvas
 
     def transformed_genom
         new_gen = Array[[], [], [], [], [], []]
-        0..6.times do |row|
-            0..6.times do |column|
+        6.times do |row|
+            6.times do |column|
                 live_neighbours = self.live_neighbours(row, column)
                 new_cell = case live_neighbours
                     when 0..1 then 0
@@ -77,6 +77,7 @@ class Canvas
     def fitness
         fitness = 0
         fitness += 36 unless self.any_overheating?
+        fitness += self.live_cells
         canvas2 = Canvas.new self.transformed_genom
         fitness += canvas2.live_cells
         
@@ -97,8 +98,8 @@ class Canvas
 
     def live_cells 
         count = 0
-        0..6.times do |row|
-            0..6.times do |column|
+        6.times do |row|
+            6.times do |column|
                 count += 1 if 1 == self.cell(row, column)
             end
         end
@@ -107,8 +108,8 @@ class Canvas
 
     def transformations  
         transformations = []
-        0..6.times do |row|
-            0..6.times do |column|
+        6.times do |row|
+            6.times do |column|
                 genom = Canvas.clone self.genom
                 value = self.cell(row, column) == 0 ? 1 : 0
                 genom[row][ column] = value 
@@ -120,7 +121,7 @@ class Canvas
 
     def self.clone genom
         new_genom = genom.clone
-        0..6.times do |i|
+        6.times do |i|
             new_genom[i] = genom[i].clone
         end
         new_genom
@@ -130,5 +131,16 @@ class Canvas
         self.genom == other.genom
     end
 
+    def self.paint genom
+        string = ''
+        6.times do |row|
+            6.times do |column|
+                string += genom[row][column].to_s
+            end
+            string += "\n"
+        end
+        
+        string
+    end
 
 end
