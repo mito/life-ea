@@ -1,9 +1,16 @@
 require "#{File.dirname(__FILE__)}/../src/canvas"
 describe "Canvas" do
 
-    it "should be initialized by human readable string" do
+    it "should be initialized by matrix" do
         genom = [[1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1]]
         canvas = Canvas.new genom
+        canvas.genom.should == genom
+    end
+
+    it "should be initialized by human readable string" do
+        genom = [[111111], [111111], [111111], [111111], [111111], [111111]]
+        canvas = Canvas.new genom
+        genom = [[1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1]]
         canvas.genom.should == genom
     end
 
@@ -106,6 +113,19 @@ describe "Canvas" do
                     [0, 0, 0, 0, 0, 0]]
         canvas = Canvas.new genom
         canvas.fitnes.should == 30
+    end
+
+    it "should add 1 point for every left cell" do
+        pending 'need to add human readable input'
+        genom = [
+                    [0, 0, 1, 1, 0, 0], 
+                    [0, 1, 1, 1, 1, 0], 
+                    [0, 1, 1, 1, 1, 0], 
+                    [0, 0, 1, 1, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
+        canvas.fitnes.should == 4 
     end
 
     it 'should find out if there are any overheating cells' do

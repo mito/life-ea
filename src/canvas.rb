@@ -1,6 +1,17 @@
 class Canvas
     def initialize genom
-        @genom = genom
+        if genom[0].size == 1
+            @genom = Array[[], [], [], [], [], []]
+            0..6.times do |i|
+                row = genom[i][0].to_s.split(//)
+                row.map! do |s| 
+                    s.to_i 
+                end
+                @genom[i] = row
+            end
+        else 
+            @genom = genom
+        end
     end
 
     def genom 
@@ -65,7 +76,7 @@ class Canvas
 
     def fitnes
         fitnes = 0
-        fitnes += 30 if self.any_overheating?
+        fitnes += 30 unless self.any_overheating?
         
         fitnes
     end
