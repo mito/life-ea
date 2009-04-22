@@ -76,7 +76,7 @@ class Canvas
 
     def fitnes
         fitnes = 0
-        fitnes += 30 unless self.any_overheating?
+        fitnes += 36 unless self.any_overheating?
         canvas2 = Canvas.new self.transformed_genom
         fitnes += canvas2.live_cells
         
@@ -87,7 +87,9 @@ class Canvas
         0..6.times do |row|
             0..6.times do |column|
                 live_neighbours = self.live_neighbours(row, column)
-                return true if (live_neighbours > 3 and live_neighbours < 9)
+                if (live_neighbours > 3)
+                    return true 
+                end
             end
         end
         false

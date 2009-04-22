@@ -105,14 +105,14 @@ describe "Canvas" do
 
     it "should add 30 points to fitnes if there are no everheating cells" do
         genom = [
-                    [0, 1, 0, 0, 0, 0], 
+                    [0, 1, 0, 1, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
-                    [0, 0, 0, 0, 0, 0]]
+                    [0, 0, 0, 0, 0, 1]]
         canvas = Canvas.new genom
-        canvas.fitnes.should == 30
+        canvas.fitnes.should == 36
     end
 
     it "should add 1 point for every left cell" do
