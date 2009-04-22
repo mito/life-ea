@@ -74,13 +74,13 @@ class Canvas
         @genom[row][column] = value
     end
 
-    def fitnes
-        fitnes = 0
-        fitnes += 36 unless self.any_overheating?
+    def fitness
+        fitness = 0
+        fitness += 36 unless self.any_overheating?
         canvas2 = Canvas.new self.transformed_genom
-        fitnes += canvas2.live_cells
+        fitness += canvas2.live_cells
         
-        fitnes
+        fitness
     end
 
     def any_overheating? 
@@ -105,10 +105,30 @@ class Canvas
         return count
     end
 
-    def mutate 
-        col = rand(6)
-        row = rand(6)
-        value = self.cell(row, col) == 0 ? 1 : 0
-        self.set_cell(row, col, value)
+    def transformations  
+        transformations = []
+        0..6.times do |row|
+            0..6.times do |column|
+                genom = Canvas.clone self.genom
+                value = self.cell(row, column) == 0 ? 1 : 0
+                genom[row][ column] = value 
+                transformations.push Canvas.new genom
+            end
+        end
+        transformations
     end
+
+    def self.clone genom
+        new_genom = genom.clone
+        0..6.times do |i|
+            new_genom[i] = genom[i].clone
+        end
+        new_genom
+    end
+
+    def == other 
+        self.genom == other.genom
+    end
+
+
 end

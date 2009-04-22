@@ -103,7 +103,7 @@ describe "Canvas" do
         canvas.genom.should ==  exp_genom
     end
 
-    it "should add 30 points to fitnes if there are no everheating cells" do
+    it "should add 30 points to fitness if there are no everheating cells" do
         genom = [
                     [0, 1, 0, 1, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
@@ -112,10 +112,10 @@ describe "Canvas" do
                     [0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 1]]
         canvas = Canvas.new genom
-        canvas.fitnes.should == 36
+        canvas.fitness.should == 36
     end
 
-    it "should add 1 point for every left cell" do
+    it "should add 1 point to fitness for every left cell" do
         genom = [
                     '001100',
                     '011110',
@@ -124,7 +124,7 @@ describe "Canvas" do
                     '000000',
                     '000000']
         canvas = Canvas.new genom
-        canvas.fitnes.should == 4 
+        canvas.fitness.should == 4 
     end
 
     it 'should find out if there are any overheating cells' do
@@ -163,34 +163,58 @@ describe "Canvas" do
         canvas.live_cells.should == 12 
     end
 
-    it 'should mutate randomly' do 
+    it 'should return all transformations' do
         genom1 = [
-                    [1, 1, 0, 0, 0, 0], 
-                    [1, 1, 1, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
-                    [0, 0, 0, 0, 0, 0], 
-                    [0, 0, 0, 0, 0, 0]]
-        genom2 = [
-                    [1, 1, 0, 0, 0, 0], 
-                    [1, 1, 1, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0]]
-        canvas = Canvas.new genom2
-        canvas.mutate
-        genom2 = canvas.genom
-
-        changes = 0
-        0..6.times do |row|
-            0..6.times do |column|
-                if genom1[row][column] != genom2[row][column]
-                    changes += 1
-                end
+        canvas = Canvas.new genom1
+        canvas.transformations.size.should == 36
+        canvas.transformations.each do |transf|
+            transf = transf.genom.flatten
+            sum = 0
+            transf.each do |val|
+                 sum += val
             end
+            sum.should == 1
         end
-
-        changes.should == 1
+        
     end
+
+    it 'should clone genom' do
+        genom1 = [
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0]]
+        genom2 = Canvas.clone genom1
+        genom2[0][0] = 1
+        genom1[0][0].should_not == genom2[0][0]
+    end
+
+    it 'should be able to compare with other canvas' do
+        genom1 = [
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0]]
+        canvas1= Canvas.new genom1
+        genom2 = [
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0]]
+        canvas2= Canvas.new genom2
+        canvas1.should == canvas2
+    end
+
 end
