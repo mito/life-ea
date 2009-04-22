@@ -64,6 +64,10 @@ class Canvas
     end
 
     def fitnes
+        fitnes = 0
+        fitnes += 30 if self.any_overheating?
+        
+        fitnes
     end
 
     def any_overheating? 

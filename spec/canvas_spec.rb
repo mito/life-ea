@@ -96,8 +96,7 @@ describe "Canvas" do
         canvas.genom.should ==  exp_genom
     end
 
-    it "should count fitnes for 1 generation" do
-        pending 'need to find out if has overheating cells'
+    it "should add 30 points to fitnes if there are no everheating cells" do
         genom = [
                     [0, 1, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0], 
