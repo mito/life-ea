@@ -4,8 +4,9 @@ hill = HillClimbing.new
 genom = hill.generate_genom 
 puts Canvas.paint genom
 max = 1000
-memory = 10
+memory = 100
 
-puts '----------------------' 
 res = hill.climb genom, max, memory
+
+puts '======================' 
 puts Canvas.paint res.genom

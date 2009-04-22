@@ -79,14 +79,14 @@ class Canvas
         fitness += 36 unless self.any_overheating?
         fitness += self.live_cells
         canvas2 = Canvas.new self.transformed_genom
-        fitness += canvas2.live_cells
+        fitness += canvas2.live_cells * 2
         
         fitness
     end
 
     def any_overheating? 
-        0..6.times do |row|
-            0..6.times do |column|
+        6.times do |row|
+            6.times do |column|
                 live_neighbours = self.live_neighbours(row, column)
                 if (live_neighbours > 3)
                     return true 
@@ -108,8 +108,8 @@ class Canvas
 
     def transformations  
         transformations = []
-        6.times do |row|
-            6.times do |column|
+        5.downto(0) do |row|
+            5.downto(0) do |column|
                 genom = Canvas.clone self.genom
                 value = self.cell(row, column) == 0 ? 1 : 0
                 genom[row][ column] = value 

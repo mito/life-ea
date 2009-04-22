@@ -112,7 +112,7 @@ describe "Canvas" do
                     [0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 1]]
         canvas = Canvas.new genom
-        canvas.fitness.should == 36
+        canvas.fitness.should == 39
     end
 
     it "should add 1 point to fitness for every left cell" do
@@ -124,7 +124,7 @@ describe "Canvas" do
                     '000000',
                     '000000']
         canvas = Canvas.new genom
-        canvas.fitness.should == 4 
+        canvas.fitness.should == 12+4*2
     end
 
     it 'should find out if there are any overheating cells' do
