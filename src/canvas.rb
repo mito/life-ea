@@ -1,6 +1,6 @@
 class Canvas
     def initialize genom
-        @genom = genom.gsub /-/,''
+        @genom = genom
     end
 
     def genom 
@@ -9,7 +9,25 @@ class Canvas
 
     #create copy of Canvas and modify cells
     def next_generation 
+        canvas = self.clone
         
+    end
+
+    def transformed_genom
+        new_gen = Array[[], [], [], [], [], []]
+        0..6.times do |row|
+            0..6.times do |column|
+                live_neighbours = self.live_neighbours(row, column)
+                new_cell = case live_neighbours
+                    when 0..1 then 0
+                    when 4..8 then 0
+                    when 2 then self.cell(row, column)
+                    when 3 then 1
+                end
+                new_gen[row] << new_cell
+            end
+        end
+        new_gen
     end
 
     def live_neighbours row, column
@@ -38,12 +56,10 @@ class Canvas
     end
 
     def cell row, column
-        index = row * 6 + column
-        @genom[index].chr.to_i
+        @genom[row][column]
     end
 
     def set_cell row, column, value
-        index = row * 6 + column
-        @genom[index] = value.to_s 
+        @genom[row][column] = value
     end
 end

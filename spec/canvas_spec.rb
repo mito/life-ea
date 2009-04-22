@@ -2,81 +2,97 @@ require "#{File.dirname(__FILE__)}/../src/canvas"
 describe "Canvas" do
 
     it "should be initialized by human readable string" do
-        canvas = Canvas.new '000000-000000-000000-000000-000000-000000'
-        canvas.genom.should == '000000000000000000000000000000000000' 
+        genom = [[1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1]]
+        canvas = Canvas.new genom
+        canvas.genom.should == genom
     end
 
-    it "should be initialized by binary string" do
-        canvas = Canvas.new '111111111111111111111111111111111111'
-        canvas.genom.should == '111111111111111111111111111111111111' 
-    end
+    #it "should return transformed genom" do 
+        #genom = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        #canvas = Canvas.new genom
+        #exp_genom = [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        #canvas.transformed_genom.should == exp_genom 
+    #end
 
-
-    it "should generate next generation canvas" do 
-        canvas = Canvas.new '100000000000000000000000000000000000'
-        canvas2 = canvas.next_generation 
-
-        canvas2.genom.should = '000000000000000000000000000000000000'
+    it "should return transformed genom2" do 
+        genom = [[0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
+        genom = [[0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        canvas.transformed_genom.should == genom
     end
 
     it 'should return number of neighbours of left-upper corner cell' do
-        canvas = Canvas.new '010000-000000-000000-000000-000000-000000'
+        genom = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
         canvas.live_neighbours(0,0).should == 1
     end
 
     it 'should return number of neighbours of right-upper corner cell' do
-        canvas = Canvas.new '010011-000011-000000-000000-000000-000000'
+        genom = [[0, 1, 0, 0, 1, 1], [0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
         canvas.live_neighbours(0,5).should == 3
     end
 
     it 'should return number of neighbours of middle cell' do
-        canvas = Canvas.new '010011-000011-000000-000000-000000-000000'
+        genom = [[0, 1, 0, 0, 1, 1], [0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
         canvas.live_neighbours(2,2).should == 0
     end
 
     it 'should return number of neighbours of lower-left cell' do
-        canvas = Canvas.new '010011-000011-000000-000000-100000-010000'
+        genom = [[0, 1, 0, 0, 1, 1], [0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
         canvas.live_neighbours(5,0).should == 2
     end
 
     it 'should return number of neighbours of lower-right cell' do
-        canvas = Canvas.new '010011-000011-000000-000000-100011-010010'
+        genom = [[0, 1, 0, 0, 1, 1], [0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 1], [0, 1, 0, 0, 1, 0]]
+        canvas = Canvas.new genom
         canvas.live_neighbours(5,5).should == 3
     end
 
     it 'should return number of neighbours of some cell' do
-        canvas = Canvas.new '111011-111011-111000-000000-100011-010010'
+        genom = [[1, 1, 1, 0, 1, 1], [1, 1, 1, 0, 1, 1], [1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 1], [0, 1, 0, 0, 1, 0]]
+        canvas = Canvas.new genom
         canvas.live_neighbours(1,1).should == 8
     end
 
     it 'should return cell value' do
-        canvas = Canvas.new '010000-000000-000000-000000-000000-000000'
+        genom = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
         canvas.cell(0,0).should == 0
     end
 
     it 'should return cell value1' do
-        canvas = Canvas.new '010000-000000-000000-000000-000000-000000'
+        genom = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
         canvas.cell(0,1).should == 1
     end
 
     it 'should return cell value5' do
-        canvas = Canvas.new '010000-000000-000005-000000-000000-000000'
+        genom = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
         canvas.cell(2,5).should == 5
     end
 
     it 'should return cell value6' do
-        canvas = Canvas.new '010000-000000-000005-000000-000000-000006'
+        genom = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6]]
+        canvas = Canvas.new genom
         canvas.cell(5,5).should == 6
     end
 
     it 'should set cell value to 5,5' do
-        canvas = Canvas.new '010000-000000-000005-000000-000000-000006'
+        genom = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6]]
+        canvas = Canvas.new genom
         canvas.set_cell(5,5,11)
-        canvas.genom.should == '0100000000000000050000000000000000011'
+        canvas.genom.should == [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 11]]
     end
     it 'should set cell value to 0,5' do
-        canvas = Canvas.new '010000-000000-000005-000000-000000-000006'
+        genom = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6]]
+        canvas = Canvas.new genom
         canvas.set_cell(0,5,1)
-        canvas.genom.should == '010001000000000005000000000000000006'
+
+        exp_genom = [[0, 1, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6]]
+        canvas.genom.should ==  exp_genom
     end
 end
