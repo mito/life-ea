@@ -62,4 +62,17 @@ class Canvas
     def set_cell row, column, value
         @genom[row][column] = value
     end
+
+    def fitnes
+    end
+
+    def any_overheating? 
+        0..6.times do |row|
+            0..6.times do |column|
+                live_neighbours = self.live_neighbours(row, column)
+                return true if (live_neighbours > 3 and live_neighbours < 9)
+            end
+        end
+        false
+    end
 end

@@ -7,12 +7,12 @@ describe "Canvas" do
         canvas.genom.should == genom
     end
 
-    #it "should return transformed genom" do 
-        #genom = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
-        #canvas = Canvas.new genom
-        #exp_genom = [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
-        #canvas.transformed_genom.should == exp_genom 
-    #end
+    it "should return transformed genom" do 
+        genom = [[0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
+        exp_genom = [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+        canvas.transformed_genom.should == exp_genom 
+    end
 
     it "should return transformed genom2" do 
         genom = [[0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
@@ -94,5 +94,42 @@ describe "Canvas" do
 
         exp_genom = [[0, 1, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6]]
         canvas.genom.should ==  exp_genom
+    end
+
+    it "should count fitnes for 1 generation" do
+        pending 'need to find out if has overheating cells'
+        genom = [
+                    [0, 1, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
+        canvas.fitnes.should == 30
+    end
+
+    it 'should find out if there are any overheating cells' do
+        genom = [
+                    [0, 1, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
+        canvas.any_overheating?.should == false 
+    end
+
+    it 'should find out if there are any overheating cells' do
+        genom = [
+                    [1, 1, 0, 0, 0, 0], 
+                    [1, 1, 1, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom
+        canvas.any_overheating?.should == true 
     end
 end
