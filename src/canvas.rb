@@ -104,4 +104,11 @@ class Canvas
         end
         return count
     end
+
+    def mutate 
+        col = rand(6)
+        row = rand(6)
+        value = self.cell(row, col) == 0 ? 1 : 0
+        self.set_cell(row, col, value)
+    end
 end

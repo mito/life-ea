@@ -162,4 +162,35 @@ describe "Canvas" do
         canvas = Canvas.new genom
         canvas.live_cells.should == 12 
     end
+
+    it 'should mutate randomly' do 
+        genom1 = [
+                    [1, 1, 0, 0, 0, 0], 
+                    [1, 1, 1, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0]]
+        genom2 = [
+                    [1, 1, 0, 0, 0, 0], 
+                    [1, 1, 1, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0], 
+                    [0, 0, 0, 0, 0, 0]]
+        canvas = Canvas.new genom2
+        canvas.mutate
+        genom2 = canvas.genom
+
+        changes = 0
+        0..6.times do |row|
+            0..6.times do |column|
+                if genom1[row][column] != genom2[row][column]
+                    changes += 1
+                end
+            end
+        end
+
+        changes.should == 1
+    end
 end
