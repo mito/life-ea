@@ -1,9 +1,9 @@
 class Canvas
     def initialize genom
-        if genom[0].size == 1
+        if genom[0].is_a? String 
             @genom = Array[[], [], [], [], [], []]
             0..6.times do |i|
-                row = genom[i][0].to_s.split(//)
+                row = genom[i].split(//)
                 row.map! do |s| 
                     s.to_i 
                 end
@@ -77,6 +77,8 @@ class Canvas
     def fitnes
         fitnes = 0
         fitnes += 30 unless self.any_overheating?
+        canvas2 = Canvas.new self.transformed_genom
+        fitnes += canvas2.live_cells
         
         fitnes
     end
@@ -89,5 +91,15 @@ class Canvas
             end
         end
         false
+    end
+
+    def live_cells 
+        count = 0
+        0..6.times do |row|
+            0..6.times do |column|
+                count += 1 if 1 == self.cell(row, column)
+            end
+        end
+        return count
     end
 end

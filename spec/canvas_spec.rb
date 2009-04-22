@@ -8,7 +8,7 @@ describe "Canvas" do
     end
 
     it "should be initialized by human readable string" do
-        genom = [[111111], [111111], [111111], [111111], [111111], [111111]]
+        genom = ['111111', '111111', '111111', '111111', '111111', '111111']
         canvas = Canvas.new genom
         genom = [[1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1]]
         canvas.genom.should == genom
@@ -116,14 +116,13 @@ describe "Canvas" do
     end
 
     it "should add 1 point for every left cell" do
-        pending 'need to add human readable input'
         genom = [
-                    [0, 0, 1, 1, 0, 0], 
-                    [0, 1, 1, 1, 1, 0], 
-                    [0, 1, 1, 1, 1, 0], 
-                    [0, 0, 1, 1, 0, 0], 
-                    [0, 0, 0, 0, 0, 0], 
-                    [0, 0, 0, 0, 0, 0]]
+                    '001100',
+                    '011110',
+                    '011110',
+                    '001100',
+                    '000000',
+                    '000000']
         canvas = Canvas.new genom
         canvas.fitnes.should == 4 
     end
@@ -150,5 +149,17 @@ describe "Canvas" do
                     [0, 0, 0, 0, 0, 0]]
         canvas = Canvas.new genom
         canvas.any_overheating?.should == true 
+    end
+
+    it 'should return count of live cells' do 
+        genom = [
+                    '001100',
+                    '011110',
+                    '011110',
+                    '001100',
+                    '000000',
+                    '000000']
+        canvas = Canvas.new genom
+        canvas.live_cells.should == 12 
     end
 end
