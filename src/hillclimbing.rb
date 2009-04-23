@@ -10,13 +10,13 @@ class HillClimbing
             end
         end
         genom
-        genom = [
-                    [0, 1, 1, 0, 0, 0], 
-                    [0, 0, 1, 0, 0, 0], 
-                    [1, 1, 1, 1, 1, 0], 
-                    [0, 0, 1, 0, 0, 0], 
-                    [0, 0, 1, 0, 0, 0], 
-                    [0, 0, 0, 0, 0, 0]]
+        #genom = [
+                    #[0, 1, 1, 0, 0, 0], 
+                    #[0, 0, 1, 0, 0, 0], 
+                    #[1, 1, 1, 1, 1, 0], 
+                    #[0, 0, 1, 0, 0, 0], 
+                    #[0, 0, 1, 0, 0, 0], 
+                    #[0, 0, 0, 0, 0, 0]]
 
     end
 
@@ -45,8 +45,8 @@ class HillClimbing
             
             #puts new_fitness
             if new_fitness < fitness_glob
-            puts Canvas.paint new_canvas.genom
-            puts '--------------------------'
+            #puts Canvas.paint new_canvas.genom
+            #puts '--------------------------'
                 fitness_glob = new_fitness
                 solution = new_canvas
             end
