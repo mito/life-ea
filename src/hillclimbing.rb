@@ -37,10 +37,11 @@ class HillClimbing
                     new_fitness = current_fitness
                 end
             end
-            #puts Canvas.paint new_canvas.genom
-            #puts '--------------------------'
-            
-            #puts time
+            if (time.modulo(100) ==0)
+                puts '--------------------------'
+                puts time
+                puts Canvas.paint new_canvas.genom unless new_canvas.nil?
+            end
             return solution if new_canvas.nil? 
             
             #puts new_fitness
